@@ -51,4 +51,4 @@ pNodoA * rotacao_dupla_direita (pNodoA * pt);
 pNodoA * rotacao_dupla_esquerda (pNodoA * pt);
 pNodoA * Caso1 (pNodoA * a , int *ok);
 pNodoA * Caso2 (pNodoA * a , int *ok);
-pNodoA * InsereAVL (pNodoA * a, TipoInfo x, int *ok);
+pNodoA * InsereAVL (pNodoA * a, TipoInfo x, int page, int *ok);

@@ -157,7 +157,7 @@ pNodoA* Caso2 (pNodoA *a , int *ok)
     return a;
 }
 
-pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int *ok)
+pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int page, int *ok)
 {
     if (a == NULL)
     {
@@ -167,13 +167,17 @@ pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int *ok)
         a->rightNode = NULL;
         a->balanceFactor = 0;
         *ok = 1;
+        InfoNo nodeData;
+        nodeData.page = page;
+        a->info.occurrencesList = cria_lista();
+        a->info.occurrencesList = insere_ord (a->info.occurrencesList, nodeData);
     }
     else
     {
         int comparacao = strcmp(x.word, a->info.word);
         if (comparacao < 0)
         {
-            a->leftNode = InsereAVL(a->leftNode,x,ok);
+            a->leftNode = InsereAVL(a->leftNode, x, page, ok);
             if (*ok)
             {
                 switch (a->balanceFactor)
@@ -193,7 +197,7 @@ pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int *ok)
         }
         else if (comparacao > 0)
         {
-            a->rightNode = InsereAVL(a->rightNode,x,ok);
+            a->rightNode = InsereAVL(a->rightNode, x, page, ok);
             if (*ok)
             {
                 switch (a->balanceFactor)
@@ -213,7 +217,9 @@ pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int *ok)
         }
         else if (comparacao == 0)
         {
-            //printf("\nsao iguais");
+            InfoNo nodeData;
+            nodeData.page = page;
+            a->info.occurrencesList = insere_ord (a->info.occurrencesList, nodeData);
         }
     }
     return a;
@@ -249,7 +255,6 @@ PtNo* insere_ord (PtNo* l, InfoNo dados)
     /*encaeia o elemento*/
     if (ant == NULL) /*o anterior não existe, logo o elemento será inserido na primeira posição*/
     {
-        //  puts("inserindo primeiro");
         novo->prox = l;
         l = novo;
     }
@@ -268,7 +273,7 @@ void imprime(PtNo* l)
         puts("lista vazia");
     else
         for (ptaux=l; ptaux!=NULL; ptaux=ptaux->prox)
-            printf("\n%d", l->info.page);
+            printf("\n%d", ptaux->info.page);
 }
 
 PtNo* remover(PtNo* l, int page)

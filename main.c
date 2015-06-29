@@ -47,7 +47,7 @@ int main()
             currentWord[currentWordIndex] = '\0';
             TipoInfo wordStruct;
             strcpy(wordStruct.word, currentWord);
-            tree = InsereAVL(tree, wordStruct, &ok);
+            tree = InsereAVL(tree, wordStruct, currentLine, &ok);
             memset(&currentWord[0], 0, sizeof(currentWord));
             currentWordIndex = 0;
         }
@@ -62,6 +62,8 @@ int main()
     fclose(inputText);
 
     Desenha(tree,1);
+
+    imprime(tree->info.occurrencesList);
 }
 
 int isSeparatorCharacter(char character)

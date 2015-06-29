@@ -31,7 +31,7 @@ int main()
     int currentWordIndex = 0;
 
     char currentChar;
-    int currentLine = 1;
+    int currentLine = 0;
 
     do
     {
@@ -63,7 +63,9 @@ int main()
 
     Desenha(tree,1);
 
-    imprime(tree->info.occurrencesList);
+    //imprime(tree->info.occurrencesList);
+    //pNodoA *nodo = findWord(tree, "resposta");
+    //imprime(nodo->info.occurrencesList);
 }
 
 int isSeparatorCharacter(char character)

@@ -40,6 +40,7 @@ struct TNodoA
 typedef struct TInfoArvore TipoInfo;
 typedef struct TNodoA pNodoA;
 
+pNodoA* findWord(pNodoA *a, char *word);
 pNodoA * InsereArvore(pNodoA * a, TipoInfo ch);
 int Altura (pNodoA * a);
 int Calcula_FB(pNodoA * a);

@@ -225,6 +225,28 @@ pNodoA* InsereAVL (pNodoA *a, TipoInfo x, int page, int *ok)
     return a;
 }
 
+pNodoA* findWord(pNodoA *a, char *word)
+{
+    while(a != NULL)
+    {
+        int stringCompare = strcmp(word, a->info.word);
+
+        if(!stringCompare)
+        {
+            return a;
+        }
+        else if(stringCompare < 0)
+        {
+            a = a->leftNode;
+        }
+        else
+        {
+            a = a->rightNode;
+        }
+    }
+    return NULL;
+}
+
 /* Linked list */
 
 PtNo* cria_lista(void)

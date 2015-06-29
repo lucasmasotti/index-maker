@@ -7,26 +7,25 @@
 #define MAX_WORLD_SIZE 50
 char separatorCharacters[]
 {
-  ' ', '.', ',', ';', ':',
-  '?', '!', '-', '(', ')',
-  '\n'
+    ' ', '.', ',', ';', ':',
+    '?', '!', '-', '(', ')',
+    '\n'
 };
 int numberSeparatorCharacters = 11;
 
 
 int isSeparatorCharacter(char character);
 void printWord(char currentWord[MAX_WORLD_SIZE], int *currentWordIndex, int currentLine);
-
 int main()
 {
     setlocale(LC_ALL,"");
 
-    pNodoA *arv = NULL;
+    pNodoA *tree = NULL;
     int ok;
 
     FILE *inputText;
 
-    inputText = fopen ("alienista.txt", "r");
+    inputText = fopen ("texto.txt", "r");
 
     char currentWord[MAX_WORLD_SIZE];
     int currentWordIndex = 0;
@@ -37,19 +36,20 @@ int main()
     do
     {
         currentChar = getc(inputText);
-        if(!isSeparatorCharacter(currentChar))
+        if(!isSeparatorCharacter(currentChar) && currentChar != EOF)
         {
             currentWord[currentWordIndex] = currentChar;
             currentWordIndex++;
         }
-        else if(isSeparatorCharacter(currentChar) && currentWordIndex > 0)
+
+        if((isSeparatorCharacter(currentChar) || currentChar == EOF) && currentWordIndex > 0)
         {
-           //printWord(currentWord, &currentWordIndex, currentLine);
-
-           TipoInfo wordStruct;
-           strcpy(wordStruct.word, currentWord);
-           arv = InsereAVL(arv, wordStruct, &ok);
-
+            currentWord[currentWordIndex] = '\0';
+            TipoInfo wordStruct;
+            strcpy(wordStruct.word, currentWord);
+            tree = InsereAVL(tree, wordStruct, &ok);
+            memset(&currentWord[0], 0, sizeof(currentWord));
+            currentWordIndex = 0;
         }
         if(currentChar == '\n')
         {
@@ -58,11 +58,10 @@ int main()
 
     }
     while(currentChar != EOF);
-    //printWord(currentWord, &currentWordIndex, currentLine); // Print the last world before EOF
 
     fclose(inputText);
 
-    Desenha(arv,1);
+    Desenha(tree,1);
 }
 
 int isSeparatorCharacter(char character)
@@ -79,9 +78,10 @@ int isSeparatorCharacter(char character)
     return 0;
 }
 
-void printWord(char currentWord[MAX_WORLD_SIZE], int *currentWordIndex, int currentLine) {
+void printWord(char currentWord[MAX_WORLD_SIZE], int *currentWordIndex, int currentLine)
+{
     currentWord[*currentWordIndex] = '\0';
-    printf("\n[%d] %s", currentLine, currentWord);
+    //printf("\n[%d] %s", currentLine, currentWord);
     memset(&currentWord[0], 0, sizeof(currentWord));
     *currentWordIndex = 0;
 }

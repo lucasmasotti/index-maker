@@ -121,12 +121,12 @@ pNodoA* Caso1 (pNodoA* a , int *ok)
     ptu = a->leftNode;
     if (ptu->balanceFactor == 1)
     {
-        printf("fazendo rotacao direita em %d\n",a->info);
+        //printf("fazendo rotacao direita em %d\n",a->info);
         a = rotacao_direita(a);
     }
     else
     {
-        printf("fazendo rotacao dupla direita em %d\n",a->info);
+        //printf("fazendo rotacao dupla direita em %d\n",a->info);
         a = rotacao_dupla_direita(a);
     }
 
@@ -142,14 +142,14 @@ pNodoA* Caso2 (pNodoA *a , int *ok)
     ptu = a->rightNode;
     if (ptu->balanceFactor == -1)
     {
-        Desenha(a,1);
-        printf("fazendo rotacao esquerda em %d\n",a->info);
+        //Desenha(a,1);
+        //printf("fazendo rotacao esquerda em %d\n",a->info);
         a=rotacao_esquerda(a);
     }
     else
     {
-        Desenha(a,1);
-        printf("fazendo rotacao dupla esquerda em %d\n",a->info);
+        //Desenha(a,1);
+        //printf("fazendo rotacao dupla esquerda em %d\n",a->info);
         a=rotacao_dupla_esquerda(a);
     }
     a->balanceFactor = 0;
@@ -310,4 +310,3 @@ PtNo* destroi(PtNo* l)
     free(l);
     return NULL;
 }
-

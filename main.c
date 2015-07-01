@@ -15,6 +15,7 @@ int numberSeparatorCharacters = 11;
 
 
 int isSeparatorCharacter(char character);
+void printListToFile(FILE *file, PtNo *list);
 
 int main(int argc, char *argv[])
 {
@@ -113,10 +114,23 @@ int main(int argc, char *argv[])
         if(isSeparatorCharacter(currentQueryChar) || currentQueryChar == EOF)
         {
             currentQueryWord[currentQueryWordIndex] = '\0';
+
+            fprintf(outputFile, "[Consulta] %s -> ", currentQueryWord);
+
             pNodoA *wordNode = findWord(tree, currentQueryWord);
-            if(wordNode != NULL) {
-                imprime(wordNode->info.occurrencesList);
+            if(wordNode != NULL)
+            {
+                fprintf(outputFile, "palavra encontrada nas linhas: ");
+                printListToFile(outputFile, wordNode->info.occurrencesList);
+                //imprime(wordNode->info.occurrencesList);
+
             }
+            else
+            {
+                fprintf(outputFile, "palavra não encontrada");
+            }
+
+            fprintf(outputFile, "\n");
 
             memset(&currentQueryWord[0], 0, sizeof(currentQueryWord));
             currentQueryWordIndex = 0;
@@ -127,6 +141,22 @@ int main(int argc, char *argv[])
 
     fclose(queryFile);
     fclose(outputFile);
+}
+
+void printListToFile(FILE *file, PtNo *list)
+{
+    PtNo* auxiliarPointer;
+    if (list == NULL)
+    {
+        puts("lista vazia");
+    }
+    else
+    {
+        for (auxiliarPointer = list; auxiliarPointer != NULL; auxiliarPointer = auxiliarPointer->prox)
+        {
+            fprintf(file, "%d, ", auxiliarPointer->info.page);
+        }
+    }
 }
 
 int isSeparatorCharacter(char character)

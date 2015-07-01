@@ -15,17 +15,28 @@ int numberSeparatorCharacters = 11;
 
 
 int isSeparatorCharacter(char character);
-void printWord(char currentWord[MAX_WORLD_SIZE], int *currentWordIndex, int currentLine);
-int main()
+
+int main(int argc, char *argv[])
 {
     setlocale(LC_ALL,"");
 
+    char inputTextFile[] = "text.txt";
+    char queryTextFile[] = "query.txt";
+    char outPutTextFile[] = "output.txt";
+
+    /* Beggining of the tree construction phase */
     pNodoA *tree = NULL;
     int ok;
 
     FILE *inputText;
 
-    inputText = fopen ("texto.txt", "r");
+    inputText = fopen (inputTextFile, "r");
+
+    if(inputText == NULL)
+    {
+        printf("Falha ao abrir arquivo de texto.");
+        return 1;
+    }
 
     char currentWord[MAX_WORLD_SIZE];
     int currentWordIndex = 0;
@@ -61,11 +72,48 @@ int main()
 
     fclose(inputText);
 
-    Desenha(tree,1);
+    //Desenha(tree,1);
 
     //imprime(tree->info.occurrencesList);
     //pNodoA *nodo = findWord(tree, "resposta");
     //imprime(nodo->info.occurrencesList);
+
+    /* End of the tree construction phase */
+
+    FILE *queryFile;
+    FILE *outputFile;
+
+    queryFile = fopen(queryTextFile, "r");
+    if(queryFile == NULL)
+    {
+        printf("Falha ao abrir arquivo de de consulta.");
+        return 1;
+    }
+
+    outputFile = fopen(outPutTextFile, "w");
+    if(outputFile == NULL)
+    {
+        printf("Falha ao criar arquivo de saída.");
+        return 1;
+    }
+
+    char currentQueryWord[MAX_WORLD_SIZE];
+    int currentQueryWordIndex = 0;
+    char currentQueryChar;
+
+    do
+    {
+        currentQueryChar = getc(queryFile);
+        __fpurge(stdin);
+        if(!isSeparatorCharacter(currentQueryChar)) {
+            putchar(currentQueryChar);
+        }
+    }
+    while(currentQueryChar != EOF);
+
+
+    fclose(queryFile);
+    fclose(outputFile);
 }
 
 int isSeparatorCharacter(char character)
@@ -80,12 +128,4 @@ int isSeparatorCharacter(char character)
     }
 
     return 0;
-}
-
-void printWord(char currentWord[MAX_WORLD_SIZE], int *currentWordIndex, int currentLine)
-{
-    currentWord[*currentWordIndex] = '\0';
-    //printf("\n[%d] %s", currentLine, currentWord);
-    memset(&currentWord[0], 0, sizeof(currentWord));
-    *currentWordIndex = 0;
 }

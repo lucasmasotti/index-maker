@@ -21,6 +21,12 @@ int main(int argc, char *argv[])
 {
     setlocale(LC_ALL,"");
 
+    if(argc != 4)
+    {
+        printf("Numero de argumentos invalido. \nSintaxe esperada: texto query saida");
+        return 1;
+    }
+
     char inputTextFile[50];
     char queryTextFile[50];
     char outPutTextFile[50];
@@ -64,7 +70,7 @@ int main(int argc, char *argv[])
             TipoInfo wordStruct;
             strcpy(wordStruct.word, currentWord);
             tree = InsereAVL(tree, wordStruct, currentLine, &ok);
-            memset(&currentWord[0], 0, sizeof(currentWord));
+            memset(&currentWord[0], 0, sizeof(currentWord)); // erase the currentWord
             currentWordIndex = 0;
         }
         if(currentChar == '\n')

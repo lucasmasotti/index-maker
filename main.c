@@ -21,9 +21,13 @@ int main(int argc, char *argv[])
 {
     setlocale(LC_ALL,"");
 
-    char inputTextFile[] = "text.txt";
-    char queryTextFile[] = "query.txt";
-    char outPutTextFile[] = "output.txt";
+    char inputTextFile[50];
+    char queryTextFile[50];
+    char outPutTextFile[50];
+
+    strcpy(inputTextFile, argv[1]);
+    strcpy(queryTextFile, argv[2]);
+    strcpy(outPutTextFile, argv[3]);
 
     /* Beggining of the tree construction phase */
     pNodoA *tree = NULL;
@@ -72,13 +76,6 @@ int main(int argc, char *argv[])
     while(currentChar != EOF);
 
     fclose(inputText);
-
-    //Desenha(tree,1);
-
-    //imprime(tree->info.occurrencesList);
-    //pNodoA *nodo = findWord(tree, "resposta");
-    //imprime(nodo->info.occurrencesList);
-
     /* End of the tree construction phase */
 
     FILE *queryFile;
@@ -122,8 +119,6 @@ int main(int argc, char *argv[])
             {
                 fprintf(outputFile, "palavra encontrada nas linhas: ");
                 printListToFile(outputFile, wordNode->info.occurrencesList);
-                //imprime(wordNode->info.occurrencesList);
-
             }
             else
             {

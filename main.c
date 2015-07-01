@@ -104,9 +104,22 @@ int main(int argc, char *argv[])
     do
     {
         currentQueryChar = getc(queryFile);
-        __fpurge(stdin);
-        if(!isSeparatorCharacter(currentQueryChar)) {
-            putchar(currentQueryChar);
+        if(!isSeparatorCharacter(currentQueryChar) && currentQueryChar != EOF)
+        {
+            currentQueryWord[currentQueryWordIndex] = currentQueryChar;
+            currentQueryWordIndex++;
+        }
+
+        if(isSeparatorCharacter(currentQueryChar) || currentQueryChar == EOF)
+        {
+            currentQueryWord[currentQueryWordIndex] = '\0';
+            pNodoA *wordNode = findWord(tree, currentQueryWord);
+            if(wordNode != NULL) {
+                imprime(wordNode->info.occurrencesList);
+            }
+
+            memset(&currentQueryWord[0], 0, sizeof(currentQueryWord));
+            currentQueryWordIndex = 0;
         }
     }
     while(currentQueryChar != EOF);

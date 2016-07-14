@@ -14,7 +14,11 @@ A saida é o arquivo que conterá o resultado do procesamento do programa.
 
 Exemplo de saída:
 >Consulta: lua Palavra encontrada nas linhas 1, 5, 7
+
 >Consulta: sol Palavra encontrada nas linhas 3, 10
+
 >Consulta: marte Palavra não encontrada
+
 >Consulta: a Palavra encontrada nas linhas 1, 3, 4, 5, 6, 7, 8
+
 >O tempo gasto na busca foi de 30 ms.
